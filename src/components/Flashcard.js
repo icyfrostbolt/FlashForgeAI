@@ -123,7 +123,7 @@ function Flashcard() {
           onChange={(e) => setFlashcardAIPrompt(e.target.value)}
           placeholder="Put the AI Prompt.."
         />
-        <button type="submit">Submit</button>
+        <button type="submit">Add Card</button>
         <button onClick={handleDeckCreation}>Create Deck</button>
     </form>
   </div>

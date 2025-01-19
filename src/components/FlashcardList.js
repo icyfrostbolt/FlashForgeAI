@@ -29,7 +29,7 @@ function FlashcardList() {
 
   const handleToggle = async (id, toggle) => {
     let setToggle = false;
-    if (toggle) {
+    if (!toggle) {
       setToggle = true;
     }
     try {

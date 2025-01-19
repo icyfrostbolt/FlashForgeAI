@@ -3,8 +3,8 @@ import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
 function Flashcard() {
-  const [flashcardQuestion, setFlashcardQuestion] = useState('');
-  const [flashcardAnswer, setFlashcardAnswer] = useState('');
+  let [flashcardQuestion, setFlashcardQuestion] = useState('');
+  let [flashcardAnswer, setFlashcardAnswer] = useState('');
   const [flashcardAIPrompt, setFlashcardAIPrompt] = useState('');
   const { GoogleGenerativeAI } = require("@google/generative-ai");
   const genAI = new GoogleGenerativeAI(`${process.env.GEMINI_API_KEY}`);
@@ -16,7 +16,16 @@ function Flashcard() {
     if (flashcardAIPrompt) {
         const result = await model.generateContent(flashcardAIPrompt);
         aiGeneratedContent = result.response.text();
+
+        if (flashcardQuestion.trim('') === "") {
+          flashcardQuestion = flashcardAIPrompt;
+        }
+
+        if (flashcardAnswer.trim('') === "") {
+          flashcardAnswer = aiGeneratedContent;
+        }
     }
+
     await addDoc(collection(db, 'flashcards'), {
       question: flashcardQuestion,
       answer: flashcardAnswer,

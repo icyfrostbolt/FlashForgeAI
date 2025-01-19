@@ -75,7 +75,38 @@ function Flashcard() {
     setFlashcardAIPrompt('');
   };
   const handleDeckCreation = async (e) => {
-    
+    let aiGeneratedContent = '';
+    if (flashcardAIPrompt) {
+        const deck = await modelDeck.generateContent("Create a deck of flashcards in JSON format about the topic:".concat(" ", flashcardAIPrompt));
+        aiGeneratedContent = deck.response.text();
+
+        if (flashcardQuestion.trim('') === "") {
+          flashcardQuestion = flashcardAIPrompt;
+        }
+
+        if (flashcardAnswer.trim('') === "") {
+          flashcardAnswer = aiGeneratedContent;
+        }
+    }
+    try {
+        const jsonArray = JSON.parse(aiGeneratedContent);
+        jsonArray.forEach(async (obj, index) => {
+            await addDoc(collection(db, 'flashcards'), {
+                question: obj.front,
+                answer: obj.back,
+                aiContent: aiGeneratedContent,
+                toggle: false, // sets the question to show first
+                createdAt: new Date()
+                });
+          // console.log(`Object ${index + 1}:`, obj);
+        });
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+      }
+
+    setFlashcardQuestion('');
+    setFlashcardAnswer('');
+    setFlashcardAIPrompt('');
   };
 
   return (

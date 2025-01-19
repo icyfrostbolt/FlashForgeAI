@@ -4,7 +4,7 @@ import { db } from '../firebase';
 
 function FlashcardList() {
   const [flashcards, setFlashcards] = useState([]);
-  const [hoveredId, setHoveredId] = useState(null);
+  const [flashcardIndex, setFlashcardIndex] = useState(0);
 
   useEffect(() => {
     const q = query(collection(db, 'flashcards'), orderBy('createdAt', 'desc'));
@@ -14,6 +14,7 @@ function FlashcardList() {
         ...doc.data()
       }));
       setFlashcards(flashcardArray);
+      setFlashcardIndex(0);
     });
 
     return () => unsubscribe();
@@ -37,30 +38,26 @@ function FlashcardList() {
         toggle: setToggle
       });
     } catch (error) {
-      console.error("Error deleting document: ", error);
+      console.error("Error toggling document: ", error);
     }
   };
 
   return (
-    <ul style={{ listStyleType: 'none', padding: 0 }}>
-      {flashcards.map((flashcard) => (
-        <li 
-          key={flashcard.id} 
-          onMouseEnter={() => setHoveredId(flashcard.id)}
-          onMouseLeave={() => setHoveredId(null)}
-          style={{ 
-            position: 'relative', 
-            padding: '10px', 
-            border: '1px solid #ddd', 
-            marginBottom: '5px',
-            borderRadius: '5px'
-          }}
-        >
-          {flashcard.toggle ? flashcard.answer : flashcard.question}
-          {hoveredId === flashcard.id && (
+    <div>
+      {flashcards.length > 0 ? (
+        <div>
+          <div class='box'>
+            <div>
+              {flashcards[flashcardIndex].toggle
+                ? flashcards[flashcardIndex].answer
+                : flashcards[flashcardIndex].question}
+            </div>
+          </div>
             <div>
               <button
-                onClick={() => handleToggle(flashcard.id, flashcard.toggle)}
+                onClick={() =>
+                  handleToggle(flashcards[flashcardIndex].id, flashcards[flashcardIndex].toggle)
+                }
                 style={{
                   position: 'absolute',
                   right: '5px',
@@ -73,29 +70,61 @@ function FlashcardList() {
                   color: 'green',
                 }}
               >
-                o 
+                o
               </button>
               <button
-              onClick={() => handleDelete(flashcard.id)}
+                onClick={() => handleDelete(flashcards[flashcardIndex].id)}
+                style={{
+                  position: 'absolute',
+                  right: '5px',
+                  top: '75%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '100%',
+                  color: 'red',
+                }}
+              >
+                x
+              </button>
+          </div>
+          <button
+              onClick={() =>
+                setFlashcardIndex((prevIndex) =>
+                  prevIndex > 0 ? prevIndex - 1 : flashcards.length - 1
+                )
+              }
               style={{
-                position: 'absolute',
-                right: '5px',
-                top: '75%',
-                transform: 'translateY(-50%)',
+                marginBottom: '10px',
                 background: 'none',
-                border: 'none',
+                border: '1px solid gray',
+                padding: '5px 10px',
                 cursor: 'pointer',
-                fontSize: '100%',
-                color: 'red',
               }}
             >
-              x
+              Previous
             </button>
-            </div>
-          )}
-        </li>
-      ))}
-    </ul>
+            <button
+              onClick={() =>
+                setFlashcardIndex((prevIndex) =>
+                  prevIndex < flashcards.length - 1 ? prevIndex + 1 : 0
+                )
+              }
+              style={{
+                background: 'none',
+                border: '1px solid gray',
+                padding: '5px 10px',
+                cursor: 'pointer',
+              }}
+            >
+              Next
+            </button>
+        </div>
+      ) : (
+        <div>No flashcards available.</div>
+      )}
+    </div>
   );
 }
 

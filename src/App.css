@@ -37,3 +37,9 @@ li {
   position: relative;
   line-height: 2em;
 }
+
+.box {
+  top: 10em;
+  height: 10em;
+  background-color: grey;
+}

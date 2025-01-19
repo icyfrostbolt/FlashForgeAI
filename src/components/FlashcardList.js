@@ -29,7 +29,7 @@ function FlashcardList() {
 
   const handleToggle = async (id, toggle) => {
     let setToggle = false;
-    if (!toggle) {
+    if (toggle) {
       setToggle = true;
     }
     try {
@@ -73,14 +73,14 @@ function FlashcardList() {
                   color: 'black'
                 }}
               >
-                o
+                o 
               </button>
               <button
               onClick={() => handleDelete(flashcard.id)}
               style={{
                 position: 'absolute',
                 right: '5px',
-                top: '75%',
+                top: '50%',
                 transform: 'translateY(-50%)',
                 background: 'none',
                 border: 'none',
@@ -91,7 +91,7 @@ function FlashcardList() {
             >
               x
             </button>
-          </div>
+            </div>
           )}
         </li>
       ))}

@@ -22,7 +22,7 @@ function Flashcard() {
       answer: flashcardAnswer,
       aiContent: aiGeneratedContent,
       toggle: false, // sets the question to show first
-      created: new Date()
+      createdAt: new Date()
     });
 
     setFlashcardQuestion('');

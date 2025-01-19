@@ -6,7 +6,7 @@ import FlashcardList from './components/FlashcardList';
 function App() {
   return (
     <div className="App">
-      <h1>Flashcards</h1>
+      <h1>l-ai-rn</h1>
       <Flashcard />
       <FlashcardList />
     </div>

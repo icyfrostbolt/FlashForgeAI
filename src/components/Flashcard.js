@@ -24,9 +24,7 @@ function Flashcard() {
       toggle: false, // sets the question to show first
       created: new Date()
     });
-  } catch (e) {
-    console.error("Error adding document: ");
-  }
+
     setFlashcardQuestion('');
     setFlashcardAnswer('');
     setFlashcardAIPrompt('');

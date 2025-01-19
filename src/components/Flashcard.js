@@ -9,7 +9,6 @@ function Flashcard() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (flashcardAIPrompt.trim() === '') return;
     await addDoc(collection(db, 'flashcards'), {
       question: flashcardQuestion,
       answer: flashcardAnswer,

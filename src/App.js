@@ -4,8 +4,10 @@ import ScreenGenerator from './components/ScreenGenerator'
 
 function App() {
   const [inCreate, setInCreate] = useState(true);
+  const [buttonText, setButtonText] = useState('Learn');
 
   const handleButtonClick = () => {
+    setButtonText(buttonText === 'Learn' ? 'Add Cards' : 'Learn');
     if (inCreate) {
       setInCreate(false);
     } else {
@@ -23,7 +25,7 @@ function App() {
         }}></img>
       <div className="App">
         <ScreenGenerator inCreate={inCreate}/>
-        <button onClick={handleButtonClick}>Learn</button>
+        <button onClick={handleButtonClick}>{buttonText}</button>
       </div>
     </div>
   );

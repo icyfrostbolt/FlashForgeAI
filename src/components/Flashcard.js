@@ -41,6 +41,9 @@ function Flashcard() {
     setFlashcardAnswer('');
     setFlashcardAIPrompt('');
   };
+  const handleDeckCreation = async (e) => {
+    
+  };
 
   return (
     <div>
@@ -64,6 +67,7 @@ function Flashcard() {
           placeholder="Put the AI Prompt.."
         />
         <button type="submit">Submit</button>
+        <button onClick={handleDeckCreation}>Create Deck</button>
     </form>
   </div>
   );

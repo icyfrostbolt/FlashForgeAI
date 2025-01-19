@@ -7,14 +7,17 @@ function Flashcard() {
   let [flashcardAnswer, setFlashcardAnswer] = useState('');
   const [flashcardAIPrompt, setFlashcardAIPrompt] = useState('');
   const { GoogleGenerativeAI } = require("@google/generative-ai");
+
   const genAI = new GoogleGenerativeAI(`AIzaSyBnYEae__BnMl0ecncct45SoUL9EmVnEwY`);
+
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     let aiGeneratedContent = '';
     if (flashcardAIPrompt) {
-        const result = await model.generateContent(flashcardAIPrompt);
+        let prompt = "Answer the prompt as if producing just the back of a flashcard, keep the response short";
+        const result = await model.generateContent(prompt.concat(" ", flashcardAIPrompt));
         aiGeneratedContent = result.response.text();
 
         if (flashcardQuestion.trim('') === "") {

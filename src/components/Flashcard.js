@@ -46,12 +46,12 @@ function Flashcard() {
     let aiGeneratedContent = '';
     if (flashcardAIPrompt) {
         // uncomment for original ai prompt
-        //let prompt = "Answer the prompt as if producing just the back of a flashcard, keep the response short";
-        //const result = await model.generateContent(prompt.concat(" ", flashcardAIPrompt));
+        let prompt = "Answer the prompt as if producing just the back of a flashcard, keep the response short";
+        const result = await model.generateContent(prompt.concat(" ", flashcardAIPrompt));
         //ai prompt for deck topic
-        const deck = await modelDeck.generateContent("Create a deck of flashcards in JSON format about the topic:".concat(" ", flashcardAIPrompt));
-        aiGeneratedContent = deck.response.text();
-        //aiGeneratedContent = result.response.text();
+        //const deck = await modelDeck.generateContent("Create a deck of flashcards in JSON format about the topic:".concat(" ", flashcardAIPrompt));
+        //aiGeneratedContent = deck.response.text();
+        aiGeneratedContent = result.response.text();
 
         if (flashcardQuestion.trim('') === "") {
           flashcardQuestion = flashcardAIPrompt;
@@ -75,18 +75,11 @@ function Flashcard() {
     setFlashcardAIPrompt('');
   };
   const handleDeckCreation = async (e) => {
+    e.preventDefault();
     let aiGeneratedContent = '';
     if (flashcardAIPrompt) {
         const deck = await modelDeck.generateContent("Create a deck of flashcards in JSON format about the topic:".concat(" ", flashcardAIPrompt));
         aiGeneratedContent = deck.response.text();
-
-        if (flashcardQuestion.trim('') === "") {
-          flashcardQuestion = flashcardAIPrompt;
-        }
-
-        if (flashcardAnswer.trim('') === "") {
-          flashcardAnswer = aiGeneratedContent;
-        }
     }
     try {
         const jsonArray = JSON.parse(aiGeneratedContent);

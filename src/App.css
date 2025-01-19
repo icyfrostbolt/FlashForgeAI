@@ -22,7 +22,6 @@ ul {
 li {
   background-color: #f0f0f0;
   min-height: 160px;
-  line-height: 160px;
   height: auto;
   overflow-wrap: break-word;
   width: 400px;

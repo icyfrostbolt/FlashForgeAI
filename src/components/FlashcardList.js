@@ -2,18 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { collection, query, orderBy, onSnapshot, doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
-function FLashcardList() {
-  const [questions, setQuestions] = useState([]);
+function FlashcardList() {
+  const [flashcards, setFlashcards] = useState([]);
   const [hoveredId, setHoveredId] = useState(null);
 
   useEffect(() => {
-    const q = query(collection(db, 'questions'), orderBy('createdAt', 'desc'));
+    const q = query(collection(db, 'flashcards'), orderBy('createdAt', 'desc'));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const questionsArray = querySnapshot.docs.map(doc => ({
+      const flashcardArray = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       }));
-      setQuestions(questionsArray);
+      setFlashcards(flashchardsArray);
     });
 
     return () => unsubscribe();
@@ -21,7 +21,7 @@ function FLashcardList() {
 
   const handleDelete = async (id) => {
     try {
-      await deleteDoc(doc(db, 'questions', id));
+      await deleteDoc(doc(db, 'flashcards', id));
     } catch (error) {
       console.error("Error deleting document: ", error);
     }
@@ -29,10 +29,10 @@ function FLashcardList() {
 
   return (
     <ul style={{ listStyleType: 'none', padding: 0 }}>
-      {questions.map((question) => (
+      {flashcards.map((flashcard) => (
         <li 
-          key={question.id} 
-          onMouseEnter={() => setHoveredId(question.id)}
+          key={flashcard.id} 
+          onMouseEnter={() => setHoveredId(flashcard.id)}
           onMouseLeave={() => setHoveredId(null)}
           style={{ 
             position: 'relative', 
@@ -42,10 +42,11 @@ function FLashcardList() {
             borderRadius: '5px'
           }}
         >
-          {question.text}
-          {hoveredId === question.id && (
+          {flashcard.question}
+          {flashcard.answer}
+          {hoveredId === flashcard.id && (
             <button
-              onClick={() => handleDelete(question.id)}
+              onClick={() => handleDelete(flashcard.id)}
               style={{
                 position: 'absolute',
                 right: '5px',

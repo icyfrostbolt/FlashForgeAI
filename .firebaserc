@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "flashforge"
-  }
+    "default": "flashforge-7c12f",
+    "flash": "flashforge-7c12f"
+  },
+  "targets": {},
+  "etags": {}
 }

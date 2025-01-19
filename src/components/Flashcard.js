@@ -8,7 +8,8 @@ function Flashcard() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (flashcard.trim() === '') return;
+    if (flashcardQuestion.trim() === '') return;
+    if (flashcardAnswer.trim() === '') return;
     await addDoc(collection(db, 'flashcards'), {
       question: flashcardQuestion,
       answer: flashcardAnswer,
@@ -23,7 +24,7 @@ function Flashcard() {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          value={question}
+          value={flashcardQuestion}
           onChange={(e) => setFlashcardQuestion(e.target.value)}
           placeholder="Ask the question..."
         />
@@ -31,7 +32,7 @@ function Flashcard() {
       <form onSubmit={handleSubmit}>
       <input
         type="text"
-        value={answer}
+        value={flashcardAnswer}
         onChange={(e) => setFlashcardAnswer(e.target.value)}
         placeholder="Put the answer.."
       />

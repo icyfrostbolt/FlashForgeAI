@@ -13,7 +13,7 @@ function FlashcardList() {
         id: doc.id,
         ...doc.data()
       }));
-      setFlashcards(flashchardsArray);
+      setFlashcards(flashcardArray);
     });
 
     return () => unsubscribe();

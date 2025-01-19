@@ -7,7 +7,7 @@ function Flashcard() {
   let [flashcardAnswer, setFlashcardAnswer] = useState('');
   const [flashcardAIPrompt, setFlashcardAIPrompt] = useState('');
   const { GoogleGenerativeAI } = require("@google/generative-ai");
-  const genAI = new GoogleGenerativeAI(`${process.env.GEMINI_API_KEY}`);
+  const genAI = new GoogleGenerativeAI(`AIzaSyBnYEae__BnMl0ecncct45SoUL9EmVnEwY`);
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
   const handleSubmit = async (e) => {

@@ -5,10 +5,17 @@ import FlashcardList from './components/FlashcardList';
 
 function App() {
   return (
-    <div className="App">
-      <h1>l-ai-rn</h1>
-      <Flashcard />
-      <FlashcardList />
+    <div>
+      <img src='FlashForgeAI_icon.png' 
+        style={{ 
+          position: 'absolute',
+          width: '200px', 
+          display: 'flex',
+        }}></img>
+      <div className="App">
+        <Flashcard />
+        <FlashcardList />
+      </div>
     </div>
   );
 }

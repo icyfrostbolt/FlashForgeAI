@@ -12,7 +12,7 @@ input {
 }
 
 button {
-  padding: 10px 20px;
+  padding: 20px 20px;
 }
 
 ul {
@@ -21,7 +21,7 @@ ul {
 }
 
 li {
-  background-color: #f0f0f0;
+  background-color: #ecf0f1;
   height: auto;
   overflow-wrap: break-word;
   width: 70%;
@@ -41,5 +41,5 @@ li {
 .box {
   top: 10em;
   height: 10em;
-  background-color: grey;
+  background-color: #ecf0f1;
 }

@@ -42,8 +42,7 @@ function FlashcardList() {
             borderRadius: '5px'
           }}
         >
-          {flashcard.question}
-          {flashcard.answer}
+          {hoveredId === flashcard.id ? flashcard.answer : flashcard.question}
           {hoveredId === flashcard.id && (
             <button
               onClick={() => handleDelete(flashcard.id)}

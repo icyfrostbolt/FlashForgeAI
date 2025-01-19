@@ -7,7 +7,7 @@ function App() {
   const [buttonText, setButtonText] = useState('Learn');
 
   const handleButtonClick = () => {
-    setButtonText(buttonText === 'Learn' ? 'Add Cards' : 'Learn');
+    setButtonText(buttonText === 'Learn' ? 'return' : 'Learn');
     if (inCreate) {
       setInCreate(false);
     } else {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { collection, query, orderBy, onSnapshot, doc, deleteDoc } from 'firebase/firestore';
+import { collection, query, orderBy, onSnapshot, doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
 function FlashcardList() {
@@ -27,6 +27,20 @@ function FlashcardList() {
     }
   };
 
+  const handleToggle = async (id, toggle) => {
+    let setToggle = false;
+    if (toggle) {
+      setToggle = true;
+    }
+    try {
+      await updateDoc(doc(db, 'flashcards', id), {
+        toggle: setToggle
+      });
+    } catch (error) {
+      console.error("Error deleting document: ", error);
+    }
+  };
+
   return (
     <ul style={{ listStyleType: 'none', padding: 0 }}>
       {flashcards.map((flashcard) => (
@@ -42,10 +56,10 @@ function FlashcardList() {
             borderRadius: '5px'
           }}
         >
-          {hoveredId === flashcard.id ? flashcard.answer : flashcard.question}
+          {flashcard.toggle ? flashcard.answer : flashcard.question}
           {hoveredId === flashcard.id && (
             <button
-              onClick={() => handleDelete(flashcard.id)}
+              onClick={() => handleToggle(flashcard.id, flashcard.toggle)}
               style={{
                 position: 'absolute',
                 right: '5px',
@@ -58,7 +72,7 @@ function FlashcardList() {
                 color: 'red'
               }}
             >
-              ×
+              x
             </button>
           )}
         </li>

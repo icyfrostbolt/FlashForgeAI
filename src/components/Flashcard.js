@@ -5,18 +5,23 @@ import { db } from '../firebase';
 function Flashcard() {
   const [flashcardQuestion, setFlashcardQuestion] = useState('');
   const [flashcardAnswer, setFlashcardAnswer] = useState('');
+  const [flashcardAIPrompt, setFlashcardAIPrompt] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (flashcardQuestion.trim() === '') return;
     if (flashcardAnswer.trim() === '') return;
+    if (flashcardAIPrompt.trim() === '') return;
     await addDoc(collection(db, 'flashcards'), {
       question: flashcardQuestion,
       answer: flashcardAnswer,
+      aiPrompt: flashcardAIPrompt,
+      toggle: true,
       createdAt: new Date(),
     });
     setFlashcardQuestion('');
     setFlashcardAnswer('');
+    setFlashcardAIPrompt('');
   };
 
   return (
@@ -35,6 +40,12 @@ function Flashcard() {
         value={flashcardAnswer}
         onChange={(e) => setFlashcardAnswer(e.target.value)}
         placeholder="Put the answer.."
+      />
+      <input
+        type="text"
+        value={flashcardAIPrompt}
+        onChange={(e) => setFlashcardAIPrompt(e.target.value)}
+        placeholder="Put the AI Prompt.."
       />
       <button type="submit">Submit</button>
     </form>

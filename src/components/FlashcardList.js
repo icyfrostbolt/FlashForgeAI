@@ -51,6 +51,7 @@ function FlashcardList() {
 
   return (
     <div>
+      Card #{flashcardIndex + 1}
       {flashcards.length > 0 ? (
         <div>
           <div class='box'>

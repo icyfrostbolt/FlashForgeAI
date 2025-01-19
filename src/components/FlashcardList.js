@@ -29,7 +29,7 @@ function FlashcardList() {
 
   const handleToggle = async (id, toggle) => {
     let setToggle = false;
-    if (toggle) {
+    if (!toggle) {
       setToggle = true;
     }
     try {
@@ -58,12 +58,29 @@ function FlashcardList() {
         >
           {flashcard.toggle ? flashcard.answer : flashcard.question}
           {hoveredId === flashcard.id && (
-            <button
-              onClick={() => handleToggle(flashcard.id, flashcard.toggle)}
+            <div>
+              <button
+                onClick={() => handleToggle(flashcard.id, flashcard.toggle)}
+                style={{
+                  position: 'absolute',
+                  right: '5px',
+                  top: '25%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '18px',
+                  color: 'red'
+                }}
+              >
+                o
+              </button>
+              <button
+              onClick={() => handleDelete(flashcard.id)}
               style={{
                 position: 'absolute',
                 right: '5px',
-                top: '50%',
+                top: '75%',
                 transform: 'translateY(-50%)',
                 background: 'none',
                 border: 'none',
@@ -74,6 +91,7 @@ function FlashcardList() {
             >
               x
             </button>
+          </div>
           )}
         </li>
       ))}

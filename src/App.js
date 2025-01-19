@@ -24,6 +24,8 @@ function App() {
       <div className="App">
         <ScreenGenerator inCreate={inCreate}/>
         <button onClick={handleButtonClick}>Learn</button>
+        <Flashcard />
+        <FlashcardList />
       </div>
     </div>
   );

@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
-import QuestionForm from './components/QuestionForm';
-import QuestionList from './components/QuestionList';
+import Flashcard from './components/Flashcard';
+import FlashcardList from './components/FlashcardList';
 
 function App() {
   return (
     <div className="App">
-      <h1>Anonymous Q&A</h1>
-      <QuestionForm />
-      <QuestionList />
+      <h1>Flashcards</h1>
+      <Flashcard />
+      <FlashcardList />
     </div>
   );
 }

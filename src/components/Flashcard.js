@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebase';
+import { GoogleGenerativeAI, SchemaType } from "@google/generative-ai";
 
 function Flashcard() {
   let [flashcardQuestion, setFlashcardQuestion] = useState('');
@@ -9,16 +10,48 @@ function Flashcard() {
   const { GoogleGenerativeAI } = require("@google/generative-ai");
 
   const genAI = new GoogleGenerativeAI(`AIzaSyBnYEae__BnMl0ecncct45SoUL9EmVnEwY`);
-
+  
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const schema = {
+    description: "Deck of flashcards",
+    type: SchemaType.ARRAY,
+    items: {
+      type: SchemaType.OBJECT,
+      properties: {
+        front: {
+          type: SchemaType.STRING,
+          description: "Front of card",
+          nullable: false,
+        },
+        back: {
+            type: SchemaType.STRING,
+            description: "Back of card",
+            nullable: false,
+        },
+      },
+      required: ["front", "back"],
+    },
+  };
+  
+  const modelDeck = genAI.getGenerativeModel({
+    model: "gemini-1.5-flash",
+    generationConfig: {
+      responseMimeType: "application/json",
+      responseSchema: schema,
+    },
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     let aiGeneratedContent = '';
     if (flashcardAIPrompt) {
-        let prompt = "Answer the prompt as if producing just the back of a flashcard, keep the response short";
-        const result = await model.generateContent(prompt.concat(" ", flashcardAIPrompt));
-        aiGeneratedContent = result.response.text();
+        // uncomment for original ai prompt
+        //let prompt = "Answer the prompt as if producing just the back of a flashcard, keep the response short";
+        //const result = await model.generateContent(prompt.concat(" ", flashcardAIPrompt));
+        //ai prompt for deck topic
+        const deck = await modelDeck.generateContent("Create a deck of flashcards in JSON format about the topic:".concat(" ", flashcardAIPrompt));
+        aiGeneratedContent = deck.response.text();
+        //aiGeneratedContent = result.response.text();
 
         if (flashcardQuestion.trim('') === "") {
           flashcardQuestion = flashcardAIPrompt;

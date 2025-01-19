@@ -13,16 +13,18 @@ function FlashcardList() {
         id: doc.id,
         ...doc.data()
       }));
-
+      
       const currentId = flashcards[flashcardIndex]?.id; // Get current flashcard's ID
       const newIndex = flashcardArray.findIndex((flashcard) => flashcard.id === currentId);
+      console.log(newIndex);
       setFlashcards(flashcardArray);
+      console.log(flashcards);
 
       setFlashcardIndex(newIndex !== -1 ? newIndex : 0);
     });
 
     return () => unsubscribe();
-  }, [flashcardIndex, flashcards]);
+  }, [flashcardIndex]);
 
   const handleDelete = async (id) => {
     try {

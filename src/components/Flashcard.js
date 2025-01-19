@@ -3,21 +3,24 @@ import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
 function Flashcard() {
-  let [flashcardQuestion, setFlashcardQuestion] = useState('');
-  let [flashcardAnswer, setFlashcardAnswer] = useState('');
-  let [flashcardAIPrompt, setFlashcardAIPrompt] = useState('');
+  const [flashcardQuestion, setFlashcardQuestion] = useState('');
+  const [flashcardAnswer, setFlashcardAnswer] = useState('');
+  const [flashcardAIPrompt, setFlashcardAIPrompt] = useState('');
+  const { GoogleGenerativeAI } = require("@google/generative-ai");
+  const genAI = new GoogleGenerativeAI(`${process.env.GEMINI_API_KEY}`);
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-  if (flashcardQuestion.trim() === ''){flashcardQuestion = '.';}
-  if (flashcardAnswer.trim() === ''){flashcardAnswer = '.';}
-  if (flashcardAIPrompt.trim() === ''){flashcardAIPrompt = '.';}
-  try {
+    let aiGeneratedContent = '';
+    if (flashcardAIPrompt) {
+        const result = await model.generateContent(flashcardAIPrompt);
+        aiGeneratedContent = result.response.text();
+    }
     await addDoc(collection(db, 'flashcards'), {
       question: flashcardQuestion,
       answer: flashcardAnswer,
-      aiPrompt: flashcardAIPrompt,
+      aiContent: aiGeneratedContent,
       toggle: false, // sets the question to show first
       created: new Date()
     });

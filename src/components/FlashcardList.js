@@ -69,8 +69,8 @@ function FlashcardList() {
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
-                  fontSize: '18px',
-                  color: 'red'
+                  fontSize: '40px',
+                  color: 'black'
                 }}
               >
                 o
@@ -85,7 +85,7 @@ function FlashcardList() {
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
-                fontSize: '18px',
+                fontSize: '40px',
                 color: 'red'
               }}
             >

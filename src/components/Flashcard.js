@@ -9,15 +9,11 @@ function Flashcard() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (flashcardQuestion.trim() === '') return;
-    if (flashcardAnswer.trim() === '') return;
-    if (flashcardAIPrompt.trim() === '') return;
     await addDoc(collection(db, 'flashcards'), {
       question: flashcardQuestion,
       answer: flashcardAnswer,
       aiPrompt: flashcardAIPrompt,
-      toggle: true,
-      createdAt: new Date(),
+      toggle: false, // sets the question to show first
     });
     setFlashcardQuestion('');
     setFlashcardAnswer('');

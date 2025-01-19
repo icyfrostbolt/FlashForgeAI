@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
-function QuestionForm() {
+function Flashcard() {
   const [question, setQuestion] = useState('');
 
   const handleSubmit = async (e) => {
@@ -28,4 +28,4 @@ function QuestionForm() {
   );
 }
 
-export default QuestionForm;
+export default Flashcard;

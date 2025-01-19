@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, query, orderBy, onSnapshot, doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
-function QuestionList() {
+function FLashcardList() {
   const [questions, setQuestions] = useState([]);
   const [hoveredId, setHoveredId] = useState(null);
 
@@ -67,4 +67,4 @@ function QuestionList() {
   );
 }
 
-export default QuestionList;
+export default FlashcardList;

@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import Flashcard from './components/Flashcard';
-import FlashcardList from './components/FlashcardList';
+import ScreenGenerator from './components/ScreenGenerator'
 
 function App() {
+  const [inCreate, setInCreate] = useState(true);
+
+  const handleButtonClick = () => {
+    if (inCreate) {
+      setInCreate(false);
+    } else {
+      setInCreate(true);
+    }
+  };
+
   return (
     <div>
       <img src='FlashForgeAI_icon.png' 
@@ -13,8 +22,8 @@ function App() {
           display: 'flex',
         }}></img>
       <div className="App">
-        <Flashcard />
-        <FlashcardList />
+        <ScreenGenerator inCreate={inCreate}/>
+        <button onClick={handleButtonClick}>Learn</button>
       </div>
     </div>
   );

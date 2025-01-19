@@ -13,15 +13,22 @@ function FlashcardList() {
         id: doc.id,
         ...doc.data()
       }));
+
+      const currentId = flashcards[flashcardIndex]?.id; // Get current flashcard's ID
+      const newIndex = flashcardArray.findIndex((flashcard) => flashcard.id === currentId);
       setFlashcards(flashcardArray);
-      setFlashcardIndex(0);
+
+      setFlashcardIndex(newIndex !== -1 ? newIndex : 0);
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [flashcardIndex, flashcards]);
 
   const handleDelete = async (id) => {
     try {
+      setFlashcardIndex((prevIndex) =>
+        prevIndex < flashcards.length - 1 ? prevIndex + 1 : 0
+      );
       await deleteDoc(doc(db, 'flashcards', id));
     } catch (error) {
       console.error("Error deleting document: ", error);

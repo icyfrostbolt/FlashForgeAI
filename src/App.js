@@ -14,7 +14,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div class="form">
       <img src='FlashForgeAI_icon.png' 
         style={{ 
           position: 'absolute',

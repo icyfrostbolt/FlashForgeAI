@@ -3,7 +3,7 @@ import FlashcardList from './FlashcardList';
 
 function ScreenGenerator({inCreate}) {
     return (
-        <div>
+        <div class='form'>
             {inCreate ? <Flashcard /> : <FlashcardList />}
         </div>
     );

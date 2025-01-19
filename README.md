@@ -1,4 +1,4 @@
-# FlashForge - AI Study Companion
+# [FlashForge - AI Study Companion](https://flashforge-7c12f.web.app/)
 ![image](https://github.com/user-attachments/assets/96442d83-872e-4557-b6dc-dac0ebff6f85)
 
 ## About

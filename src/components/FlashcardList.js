@@ -37,7 +37,7 @@ function FlashcardList() {
     }
   };
 
-  const handleToggle = async (id, toggle) => {
+  /*const handleToggle = async (id, toggle) => {
     let setToggle = false;
     if (!toggle) {
       setToggle = true;
@@ -49,7 +49,15 @@ function FlashcardList() {
     } catch (error) {
       console.error("Error toggling document: ", error);
     }
-  };
+  };*/
+  //avoiding updating firestore for a toggle
+  const handleToggle = (id, toggle) => {
+    setFlashcards((prevFlashcards) =>
+        prevFlashcards.map((flashcard) =>
+          flashcard.id === id ? { ...flashcard, toggle: !toggle } : flashcard
+        )
+      );
+  }
 
   return (
     <div>

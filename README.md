@@ -6,7 +6,7 @@ This project was created for NWHacks 2025. Using React and Firebase, this projec
 ## Features
 - User-friendly Flashcard reader UI
 - Save Flashcards between sessions
-- Generate Flashcards using Google's Gemini AI  
+- Generate/Fill-in Flashcards using Google's Gemini AI  
 
 ## Technologies Used
 - React.js
